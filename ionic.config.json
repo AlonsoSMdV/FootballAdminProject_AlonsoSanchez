@@ -1,0 +1,7 @@
+{
+  "name": "FootballAdminProject_AlonsoSanchez",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
