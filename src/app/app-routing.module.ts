@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./page/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./page/splash/splash.module').then( m => m.SplashPageModule)
   }
 
 ];
