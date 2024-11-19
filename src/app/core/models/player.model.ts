@@ -1,8 +1,9 @@
 export interface Player{
   id: string;
   name: string;
-  surname: string;
-  age: number;
+  firstSurname: string;
+  secondSurname: string;
+  birthdate: Date;
   nationality: string;
   dorsal: number;
   position: string;

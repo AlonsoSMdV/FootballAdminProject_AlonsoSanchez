@@ -6,8 +6,9 @@ import { Player } from "../../models/player.model";
 interface PlayerRaw{
     id: string
     name: string
-    surname: string
-    age: number
+    firstSurname: string;
+    secondSurname: string;
+    birthdate: Date;
     nationality: string
     dorsal: number
     position:string
@@ -34,8 +35,9 @@ interface PlayerRaw{
         return {
             id:data.id, 
             name:data.name, 
-            surname:data.surname,
-            age:data.age,
+            firstSurname:data.firstSurname,
+            secondSurname:data.secondSurname,
+            birthdate:data.birthdate,
             nationality:data.nationality,
             dorsal:data.dorsal,
             position:data.position,

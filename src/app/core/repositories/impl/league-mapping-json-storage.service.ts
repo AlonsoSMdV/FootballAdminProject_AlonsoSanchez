@@ -12,11 +12,23 @@ interface LeagueRaw{
     providedIn: 'root'
   })
   export class JsonServerStorageMapping implements IBaseMapping<League> {
-    setAdd(data: League) {
-        throw new Error("Method not implemented.");
+    setAdd(data: League):LeagueRaw {
+        return {
+            id:data.id,
+            nombre:data.name
+        }
     }
-    setUpdate(data: any) {
-        throw new Error("Method not implemented.");
+    setUpdate(data: League):LeagueRaw {
+        let toReturn:any = {};
+        Object.keys(data).forEach(key => {
+            switch (key) {
+                case 'name': toReturn['nombre']=data[key];
+                    break;
+                default:
+                    break;
+            }
+        });
+        return toReturn;
     }
     getPaginated(page:number, pageSize: number, pages:number, data:LeagueRaw[]): Paginated<League> {
         return {page:page, pageSize:pageSize, pages:pages, data:data.map<League>((d:LeagueRaw)=>{
