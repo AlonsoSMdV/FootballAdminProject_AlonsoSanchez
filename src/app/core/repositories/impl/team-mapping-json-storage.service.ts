@@ -13,7 +13,7 @@ interface TeamRaw{
 @Injectable({
     providedIn: 'root'
   })
-  export class JsonServerStorageMapping implements IBaseMapping<Team> {
+  export class TeamJsonServerStorageMapping implements IBaseMapping<Team> {
     setAdd(data: Team):TeamRaw {
         return {
             id:data.id, 

@@ -19,7 +19,7 @@ interface PlayerRaw{
 @Injectable({
     providedIn: 'root'
   })
-  export class JsonServerStorageMapping implements IBaseMapping<Player> {
+  export class PlayerJsonServerStorageMapping implements IBaseMapping<Player> {
     setAdd(data: Player):PlayerRaw {
         return{
             nombre:data.name,

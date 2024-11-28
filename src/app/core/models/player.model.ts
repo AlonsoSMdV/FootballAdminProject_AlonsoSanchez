@@ -1,5 +1,6 @@
-export interface Player{
-  id: string;
+import { Model } from "./base.model";
+
+export interface Player extends Model{
   name: string;
   firstSurname: string;
   secondSurname: string;

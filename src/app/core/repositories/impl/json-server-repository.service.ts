@@ -13,6 +13,7 @@ import { Team } from '../../models/team.model';
 import {Player} from '../../models/player.model'
 
 export interface PaginatedRaw<T> {
+  meta: any;
   first: number
   prev: number|null
   next: number|null

@@ -11,7 +11,7 @@ interface LeagueRaw{
 @Injectable({
     providedIn: 'root'
   })
-  export class JsonServerStorageMapping implements IBaseMapping<League> {
+  export class LeagueJsonServerStorageMapping implements IBaseMapping<League> {
     setAdd(data: League):LeagueRaw {
         return {
             id:data.id,
