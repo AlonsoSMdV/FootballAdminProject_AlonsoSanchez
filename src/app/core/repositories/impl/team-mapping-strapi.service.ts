@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core"
 import { League } from "../../models/league.model"
 import { Paginated } from "../../models/paginated.model"
 import { StrapiMedia } from "../../services/impl/strapi-media.service"
-import { IBaseMapping } from "../interfaces/base-mapping.interface"
+import { IBaseMapping } from "../intefaces/base-mapping.interface"
 import { Team } from "../../models/team.model"
 
 interface MediaRaw{

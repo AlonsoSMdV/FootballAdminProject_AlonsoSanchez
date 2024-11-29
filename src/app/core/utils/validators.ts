@@ -14,3 +14,4 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
 
   return password === confirmPassword ? null : { passwordsMismatch: 'Las contraseñas no coinciden' };
 }
+

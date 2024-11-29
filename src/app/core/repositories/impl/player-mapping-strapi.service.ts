@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { StrapiMedia } from "../../services/impl/strapi-media.service"
 import { Player } from "../../models/player.model"
-import { IBaseMapping } from "../interfaces/base-mapping.interface"
+import { IBaseMapping } from "../intefaces/base-mapping.interface"
 import { Paginated } from "../../models/paginated.model"
 import { LeagueRaw } from "./league-maping-strapi.service"
 

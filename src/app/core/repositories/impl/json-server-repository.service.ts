@@ -1,21 +1,17 @@
-// src/app/repositories/impl/base-repository-json-server.service.ts
+// src/app/repositories/impl/base-repository-http.service.ts
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { IBaseRepository } from '../interfaces/base-repository.interface';
-import { API_URL_TOKEN, AUTH_TOKEN, REPOSITORY_MAPPING_TOKEN, RESOURCE_NAME_TOKEN, STRAPI_AUTH_TOKEN } from '../repository.tokens';
+import { IBaseRepository, SearchParams } from '../intefaces/base-repository.interface';
+import { API_URL_TOKEN, AUTH_TOKEN, REPOSITORY_MAPPING_TOKEN, RESOURCE_NAME_TOKEN } from '../repository.tokens';
 import { Model } from '../../models/base.model';
-import { IBaseMapping } from '../interfaces/base-mapping.interface';
+import { IBaseMapping } from '../intefaces/base-mapping.interface';
 import { Paginated } from '../../models/paginated.model';
 import { BaseRepositoryHttpService } from './base-repository-http.service';
-import { League } from '../../models/league.model';
-import { Team } from '../../models/team.model';
-import {Player} from '../../models/player.model'
+import { BaseAuthenticationService } from '../../services/impl/base-authentication.service';
 import { IAuthentication } from '../../services/interfaces/authentication.interface';
-import { IStrapiAuthentication } from '../../services/interfaces/strapi-authentication.interface';
 
 export interface PaginatedRaw<T> {
-  meta: any;
   first: number
   prev: number|null
   next: number|null
@@ -32,19 +28,35 @@ export class JsonServerRepositoryService<T extends Model> extends BaseRepository
 
   constructor(
     http: HttpClient,
-    @Inject(STRAPI_AUTH_TOKEN) override auth: IStrapiAuthentication,
+    @Inject(AUTH_TOKEN) auth: IAuthentication,
     @Inject(API_URL_TOKEN) apiUrl: string, // URL base de la API para el modelo
     @Inject(RESOURCE_NAME_TOKEN) resource:string, //nombre del recurso del repositorio
     @Inject(REPOSITORY_MAPPING_TOKEN) mapping:IBaseMapping<T>
   ) {
     super(http, auth, apiUrl, resource, mapping);
   }
-  override getAll(page:number, pageSize:number): Observable<Paginated<T>> {
-    return this.http.get<PaginatedRaw<T>>(
-      `${this.apiUrl}/${this.resource}/?_page=${page}&_per_page=${pageSize}`)
-      .pipe(map(res=>{
-        return this.mapping.getPaginated(page, pageSize, res.pages, res.data);
-      }));
+
+  override getAll(page:number, pageSize:number, filters:SearchParams = {}): Observable<T[] | Paginated<T>> {
+    let search: string = Object.entries(filters)
+      .map(([k, v]) => `${k}_like=${v}`)
+      .reduce((p, v) => `${p}${v}`, "");
+    if(page!=-1){
+      return this.http.get<PaginatedRaw<T>>(
+        `${this.apiUrl}/${this.resource}/?_page=${page}&_per_page=${pageSize}&${search}`)
+        .pipe(map(res=>{
+          return this.mapping.getPaginated(page, pageSize, res.pages, res.data);
+        }));
+    }
+    else{
+      return this.http.get<T[]>(
+        `${this.apiUrl}/${this.resource}?&${search}`)
+        .pipe(map(res=>{
+          return res.map((elem:any)=>{
+            return this.mapping.getOne(elem);
+          });
+        }));
+    }
+    
   }
 
   override add(entity: T): Observable<T> {

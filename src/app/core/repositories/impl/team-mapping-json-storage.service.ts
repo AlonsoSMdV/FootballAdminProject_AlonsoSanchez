@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IBaseMapping } from "../interfaces/base-mapping.interface";
+import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
 import { Team } from "../../models/team.model";
 
@@ -19,7 +19,7 @@ interface TeamRaw{
             id:data.id, 
             nombre:data.name, 
             jugadoresEnPlantilla:data.numberOfPlayers,
-            idLiga:data.leagueId,
+            idLiga:data.leagueId!,
         };
     }
     setUpdate(data: Team):TeamRaw {

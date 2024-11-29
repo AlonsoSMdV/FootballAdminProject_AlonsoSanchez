@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IBaseMapping } from "../interfaces/base-mapping.interface";
+import { IBaseMapping } from "../intefaces/base-mapping.interface";
 import { Paginated } from "../../models/paginated.model";
 import { League } from "../../models/league.model";
 
