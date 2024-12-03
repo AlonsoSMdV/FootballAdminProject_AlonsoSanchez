@@ -13,13 +13,11 @@ import { Group } from '../models/group.model';
 import { StrapiRepositoryService } from './impl/strapi-repository.service';
 import { BaseAuthenticationService } from '../services/impl/base-authentication.service';
 import { IAuthMapping } from '../services/interfaces/auth-mapping.interface';
-import { StrapiAuthenticationService } from '../services/impl/strapi-authentication.service';
+import { StrapiAuthenticationService } from '../services/impl/strapi-authntication.service';
 import { PeopleLocalStorageMapping } from './impl/people-mapping-local-storage.service';
 import { PeopleMappingJsonServer } from './impl/people-mapping-json-server.service';
 import { PeopleMappingStrapi } from './impl/people-mapping-strapi.service';
 import { StrapiAuthMappingService } from '../services/impl/strapi-auth-mapping.service';
-import { GroupsMappingJsonServer } from './impl/groups-mapping-json-server.service';
-import { GroupsMappingStrapi } from './impl/groups-mapping-strapi.service';
 import { IStrapiAuthentication } from '../services/interfaces/strapi-authentication.interface';
 import { StrapiMediaService } from '../services/impl/strapi-media.service';
 import { BaseMediaService } from '../services/impl/base-media.service';
@@ -65,12 +63,10 @@ export function createBaseMappingFactory<T extends Model>(
             : null;
         case 'json-server':
           return modelType === 'person'
-            ? new PeopleMappingJsonServer()
-            : new GroupsMappingJsonServer();
+            new PeopleMappingJsonServer()
         case 'strapi':
           return modelType === 'person'
-            ? new PeopleMappingStrapi()
-            : new GroupsMappingStrapi();
+            new PeopleMappingStrapi()
         default:
           throw new Error("BACKEND NOT IMPLEMENTED");
       }

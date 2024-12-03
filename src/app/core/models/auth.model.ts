@@ -15,9 +15,6 @@ export interface SignUpPayload{
 }
 
 export interface User{
-    name: string
-    surname: string
-    userId: any
     id:string,
     username:string,
     email:string

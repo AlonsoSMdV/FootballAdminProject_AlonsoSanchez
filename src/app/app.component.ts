@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { BaseAuthenticationService } from './core/services/impl/base-authentication.service';
+import { LanguageService } from './core/services/language.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -14,5 +17,13 @@ export class AppComponent {
     { title: 'Register', url: '/register', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  currentLang: string;
+
+  constructor(
+    private languageService: LanguageService,
+    public authSvc: BaseAuthenticationService,
+    private router: Router
+  ) {
+    this.currentLang = this.languageService.getStoredLanguage();
+  }
 }
